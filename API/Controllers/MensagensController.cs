@@ -18,7 +18,6 @@ namespace API.Controllers
         }
 
         [HttpPost("adicionar")]
-        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<bool>> Adicionar(MensagemDTO dto)
         {
             await _mensagemRepository.Adicionar(dto);
@@ -42,6 +41,7 @@ namespace API.Controllers
         }
 
         [HttpGet("todos")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<List<MensagemDTO>>> GetTodos()
         {
             var todos = await _mensagemRepository.GetTodos();
@@ -49,6 +49,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<MensagemDTO>> GetById(int id)
         {
             var porId = await _mensagemRepository.GetById(id);

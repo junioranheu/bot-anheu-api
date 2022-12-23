@@ -1,6 +1,7 @@
 ﻿using API.DTOs;
+using API.Enums;
+using API.Filters;
 using API.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -17,29 +18,15 @@ namespace API.Controllers
         }
 
         [HttpPut("atualizar")]
-        [Authorize]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<UsuarioDTO>> Atualizar(UsuarioSenhaDTO dto)
         {
-            //var isMesmoUsuario = await IsUsuarioSolicitadoMesmoDoToken(dto.UsuarioId);
-
-            //if (!isMesmoUsuario)
-            //{
-            //    UsuarioDTO erro = new()
-            //    {
-            //        Erro = true,
-            //        CodigoErro = (int)CodigosErrosEnum.NaoAutorizado,
-            //        MensagemErro = GetDescricaoEnum(CodigosErrosEnum.NaoAutorizado)
-            //    };
-
-            //    return erro;
-            //}
-
-            //var usuario = await _usuarios.Atualizar(dto);
-            //return Ok(usuario);
-            return Ok();
+            var usuario = await _usuarios.Atualizar(dto);
+            return Ok(usuario);
         }
 
         [HttpGet("todos")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<List<UsuarioDTO>>> GetTodos()
         {
             var itens = await _usuarios.GetTodos();
@@ -53,6 +40,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<UsuarioDTO>> GetById(int id)
         {
             var byId = await _usuarios.GetById(id);
