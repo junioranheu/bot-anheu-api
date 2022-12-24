@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
 {
-    public class MensagemRepository:IMensagemRepository
+    public class MensagemRepository : IMensagemRepository
     {
         public readonly Context _context;
         private readonly IMapper _map;
@@ -49,7 +49,9 @@ namespace API.Repositories
 
         public async Task<List<MensagemDTO>>? GetTodos()
         {
-            var todos = await _context.Mensagens.AsNoTracking().ToListAsync();
+            var todos = await _context.Mensagens.
+                        Include(u => u.Usuarios).
+                        Where(i => i.IsAtivo == true).AsNoTracking().ToListAsync();
 
             List<MensagemDTO> dto = _map.Map<List<MensagemDTO>>(todos);
             return dto;
@@ -58,7 +60,7 @@ namespace API.Repositories
         public async Task<MensagemDTO>? GetById(int id)
         {
             var byId = await _context.Mensagens.
-                       Where(m => m.MensagemId == id).AsNoTracking().FirstOrDefaultAsync();
+                       Where(m => m.MensagemId == id && m.IsAtivo == true).AsNoTracking().FirstOrDefaultAsync();
 
             MensagemDTO dto = _map.Map<MensagemDTO>(byId);
             return dto;

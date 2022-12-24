@@ -7,7 +7,13 @@ namespace API.DTOs
     {
         [Key]
         public int MensagemId { get; set; }
+        public string? Texto { get; set; } = null;
+
+        // Fk (De lá pra cá);
+        public int? UsuarioId { get; set; }
+        public UsuarioDTO? Usuarios { get; set; }
 
         public DateTime DataRegistro { get; set; } = HorarioBrasilia();
+        public bool IsAtivo { get; set; } = true;
     }
 }

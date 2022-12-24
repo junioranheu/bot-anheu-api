@@ -18,6 +18,5 @@ namespace API.Models
 
         public DateTime DataRegistro { get; set; } = HorarioBrasilia();
         public bool IsAtivo { get; set; } = true;
-
     }
 }
