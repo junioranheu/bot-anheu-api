@@ -1,4 +1,6 @@
 ﻿using API.DTOs;
+using API.Enums;
+using API.Filters;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost("registrar")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<UsuarioDTO>> Registrar(UsuarioSenhaDTO dto)
         {
             var authResultado = await _autenticarService.Registrar(dto);

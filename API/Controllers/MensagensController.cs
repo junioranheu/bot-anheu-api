@@ -19,6 +19,7 @@ namespace API.Controllers
         }
 
         [HttpPost("adicionar")]
+        [CustomAuthorize(UsuarioTipoEnum.Administrador)]
         public async Task<ActionResult<bool>> Adicionar(MensagemDTO dto)
         {
             dto.UsuarioId = Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) > 0 ? Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) : null;
