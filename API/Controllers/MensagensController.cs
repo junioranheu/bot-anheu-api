@@ -3,6 +3,7 @@ using API.Enums;
 using API.Filters;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -20,6 +21,7 @@ namespace API.Controllers
         [HttpPost("adicionar")]
         public async Task<ActionResult<bool>> Adicionar(MensagemDTO dto)
         {
+            dto.UsuarioId = Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) > 0 ? Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) : null;
             await _mensagemRepository.Adicionar(dto);
             return Ok(true);
         }

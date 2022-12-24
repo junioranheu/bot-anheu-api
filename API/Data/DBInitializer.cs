@@ -10,7 +10,7 @@ namespace API.Data
         public static async Task Initialize(Context context)
         {
             // Exclui o esquema, copia as queries, cria esquema/tabelas, popula o BD;
-            if (false)
+            if (true)
             {
                 await context.Database.EnsureDeletedAsync();
                 await context.Database.EnsureCreatedAsync();
@@ -39,7 +39,7 @@ namespace API.Data
             if (!await context.Mensagens.AnyAsync())
             {
                 await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 1, Texto = "Olá", UsuarioId = null, DataRegistro = dataAgora, IsAtivo = true, });
-                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 2, Texto = "Oi", UsuarioId = 1, DataRegistro = dataAgora, IsAtivo = true, });
+                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 2, Texto = "Oi", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true, });
             }
             #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using static Biblioteca.Utils;
 
 namespace API.DTOs
@@ -11,6 +12,7 @@ namespace API.DTOs
 
         // Fk (De lá pra cá);
         public int? UsuarioId { get; set; }
+        [JsonIgnore]
         public UsuarioDTO? Usuarios { get; set; }
 
         public DateTime DataRegistro { get; set; } = HorarioBrasilia();
