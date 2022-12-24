@@ -65,5 +65,20 @@ namespace API.Repositories
             MensagemDTO dto = _map.Map<MensagemDTO>(byId);
             return dto;
         }
+
+        public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
+        {
+            // #01 - Registrar mensagem;
+            Mensagem mensagem = _map.Map<Mensagem>(dto);
+            await _context.AddAsync(mensagem);
+            await _context.SaveChangesAsync();
+
+            // #02 - Analisar mensagem;
+
+            // #03 - Gerar resposta;
+            RespostaDTO resposta = new();
+
+            return resposta;
+        } 
     }
 }

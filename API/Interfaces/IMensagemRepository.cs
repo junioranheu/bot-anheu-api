@@ -9,5 +9,6 @@ namespace API.Interfaces
         Task? Deletar(int id);
         Task<List<MensagemDTO>>? GetTodos();
         Task<MensagemDTO>? GetById(int id);
+        Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto);
     }
 }

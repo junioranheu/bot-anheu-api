@@ -64,5 +64,14 @@ namespace API.Controllers
 
             return Ok(porId);
         }
+
+        [HttpPost("enviarMensagem")]
+        public async Task<ActionResult<RespostaDTO>> EnviarMensagem(MensagemDTO dto)
+        {
+            dto.UsuarioId = Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) > 0 ? Convert.ToInt32(User?.FindFirstValue(ClaimTypes.NameIdentifier)) : null;
+            var resposta = await _mensagemRepository.EnviarMensagem(dto);
+
+            return Ok(resposta);
+        }
     }
 }
