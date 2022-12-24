@@ -17,8 +17,12 @@ namespace API.AutoMapper
             CreateMap<Usuario, UsuarioSenhaDTO>().ReverseMap();
             CreateMap<UsuarioSenhaDTO, UsuarioDTO>().ReverseMap();
 
-            // Outros;
+            // Mensagens, respostas e afins;
+            CreateMap<EmocaoTipo, EmocaoTipoDTO>().ReverseMap();
             CreateMap<Mensagem, MensagemDTO>().ReverseMap();
+            CreateMap<MensagemEmocao, MensagemEmocaoDTO>().ReverseMap();
+            CreateMap<Resposta, RespostaDTO>().ReverseMap();
+            CreateMap<RespostaEmocao, RespostaEmocaoDTO>().ReverseMap();
         }
     }
 }
