@@ -4,16 +4,12 @@ using static Biblioteca.Utils;
 
 namespace API.Models
 {
-    public class Mensagem
+    public class EmocaoTipo
     {
         [Key]
-        public int MensagemId { get; set; }
-        public string? Texto { get; set; } = null;
-
-        // Fk (De lá pra cá);
-        public int? UsuarioId { get; set; }
-        [JsonIgnore]
-        public Usuario? Usuarios { get; set; }
+        public int EmocaoTipoId { get; set; }
+        public string? Emocao { get; set; } = null;
+        public string? Descricao { get; set; } = null;
 
         public DateTime DataRegistro { get; set; } = HorarioBrasilia();
         public bool IsAtivo { get; set; } = true;
@@ -21,5 +17,9 @@ namespace API.Models
         // Fk (De cá pra lá);
         [JsonIgnore]
         public ICollection<MensagemEmocao>? MensagensEmocoes { get; set; }
+
+        // Fk (De cá pra lá);
+        [JsonIgnore]
+        public ICollection<RespostaEmocao>? RespostasEmocoes { get; set; }
     }
 }
