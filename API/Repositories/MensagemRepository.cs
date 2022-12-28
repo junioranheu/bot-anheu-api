@@ -69,6 +69,7 @@ namespace API.Repositories
         public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
         {
             // #01 - Registrar mensagem;
+            dto.Texto = dto?.Texto?.ToLowerInvariant() ?? "";
             Mensagem mensagem = _map.Map<Mensagem>(dto);
             await _context.AddAsync(mensagem);
             await _context.SaveChangesAsync();
@@ -79,6 +80,6 @@ namespace API.Repositories
             RespostaDTO resposta = new();
 
             return resposta;
-        } 
+        }
     }
 }

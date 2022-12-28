@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using static Biblioteca.Utils;
 
@@ -16,5 +17,9 @@ namespace API.DTOs
         // Fk (De cá pra lá);
         [JsonIgnore]
         public ICollection<RespostaEmocaoDTO>? RespostasEmocoes { get; set; }
+
+        // Fk (De cá pra lá);
+        [JsonIgnore]
+        public ICollection<MensagemResposta>? MensagensRespostas { get; set; }
     }
 }

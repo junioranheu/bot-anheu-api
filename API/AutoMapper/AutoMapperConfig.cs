@@ -20,9 +20,9 @@ namespace API.AutoMapper
             // Mensagens, respostas e afins;
             CreateMap<EmocaoTipo, EmocaoTipoDTO>().ReverseMap();
             CreateMap<Mensagem, MensagemDTO>().ReverseMap();
-            CreateMap<MensagemEmocao, MensagemEmocaoDTO>().ReverseMap();
             CreateMap<Resposta, RespostaDTO>().ReverseMap();
             CreateMap<RespostaEmocao, RespostaEmocaoDTO>().ReverseMap();
+            CreateMap<MensagemResposta, MensagemRespostaDTO>().ReverseMap();
         }
     }
 }

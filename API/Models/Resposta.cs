@@ -16,5 +16,9 @@ namespace API.Models
         // Fk (De cá pra lá);
         [JsonIgnore]
         public ICollection<RespostaEmocao>? RespostasEmocoes { get; set; }
+
+        // Fk (De cá pra lá);
+        [JsonIgnore]
+        public ICollection<MensagemResposta>? MensagensRespostas { get; set; }
     }
 }

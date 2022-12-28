@@ -50,16 +50,64 @@ namespace API.Data
 
             if (!await context.Mensagens.AnyAsync())
             {
-                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 1, Texto = "Olá", UsuarioId = null, DataRegistro = dataAgora, IsAtivo = true });
-                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 2, Texto = "Oi", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true });
-                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 3, Texto = "Afffff", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true });
+                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 1, Texto = "olá", UsuarioId = null, DataRegistro = dataAgora, IsAtivo = true });
+                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 2, Texto = "oi", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true });
+                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 3, Texto = "tchau", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true });
+                await context.Mensagens.AddAsync(new Mensagem() { MensagemId = 4, Texto = "aff", UsuarioId = 2, DataRegistro = dataAgora, IsAtivo = true });
             }
 
-            if (!await context.MensagensEmocoes.AnyAsync())
+            if (!await context.Respostas.AnyAsync())
             {
-                await context.MensagensEmocoes.AddAsync(new MensagemEmocao() { MensagemEmocaoId = 1, MensagemId = 2, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
-                await context.MensagensEmocoes.AddAsync(new MensagemEmocao() { MensagemEmocaoId = 2, MensagemId = 3, EmocaoTipoId = (int)EmocaoTipoEnum.Nojo, DataRegistro = dataAgora, IsAtivo = true });
-                await context.MensagensEmocoes.AddAsync(new MensagemEmocao() { MensagemEmocaoId = 3, MensagemId = 3, EmocaoTipoId = (int)EmocaoTipoEnum.Raiva, DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 1, Texto = "olá, tudo bem?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 2, Texto = "olá, tudo certo?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 3, Texto = "olá!", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 4, Texto = "oi, tudo de boa?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 5, Texto = "e aí!", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 6, Texto = "tchau!", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 7, Texto = "até mais", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 8, Texto = "ah, que pena! tchau! :(", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 9, Texto = "que foi?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 10, Texto = "aff o quê?", DataRegistro = dataAgora, IsAtivo = true });
+            }
+
+            if (!await context.RespostasEmocoes.AnyAsync())
+            {
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 1, RespostaId = 1, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 2, RespostaId = 2, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 3, RespostaId = 3, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 4, RespostaId = 4, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 5, RespostaId = 5, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 6, RespostaId = 6, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 7, RespostaId = 7, EmocaoTipoId = (int)EmocaoTipoEnum.Neutro, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 8, RespostaId = 8, EmocaoTipoId = (int)EmocaoTipoEnum.Tristeza, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 9, RespostaId = 9, EmocaoTipoId = (int)EmocaoTipoEnum.Surpresa, DataRegistro = dataAgora, IsAtivo = true });
+                await context.RespostasEmocoes.AddAsync(new RespostaEmocao() { RespostaEmocaoId = 10, RespostaId = 10, EmocaoTipoId = (int)EmocaoTipoEnum.Raiva, DataRegistro = dataAgora, IsAtivo = true });
+            }
+
+            if (!await context.MensagensRespostas.AnyAsync())
+            {
+                // Olá;
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 1, MensagemId = 1, RespostaId = 1, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 2, MensagemId = 1, RespostaId = 2, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 3, MensagemId = 1, RespostaId = 3, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 4, MensagemId = 1, RespostaId = 4, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 5, MensagemId = 1, RespostaId = 5, DataRegistro = dataAgora, IsAtivo = true });
+
+                // Oi;
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 6, MensagemId = 2, RespostaId = 1, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 7, MensagemId = 2, RespostaId = 2, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 8, MensagemId = 2, RespostaId = 3, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 9, MensagemId = 2, RespostaId = 4, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 10, MensagemId = 2, RespostaId = 5, DataRegistro = dataAgora, IsAtivo = true });
+
+                // Tchau;
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 11, MensagemId = 3, RespostaId = 6, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 12, MensagemId = 3, RespostaId = 7, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 13, MensagemId = 3, RespostaId = 8, DataRegistro = dataAgora, IsAtivo = true });
+
+                // Aff;
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 14, MensagemId = 4, RespostaId = 9, DataRegistro = dataAgora, IsAtivo = true });
+                await context.MensagensRespostas.AddAsync(new MensagemResposta() { MensagemRespostaId = 15, MensagemId = 4, RespostaId = 10, DataRegistro = dataAgora, IsAtivo = true });
             }
             #endregion
 

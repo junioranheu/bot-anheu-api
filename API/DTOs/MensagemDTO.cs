@@ -21,6 +21,6 @@ namespace API.DTOs
 
         // Fk (De cá pra lá);
         [JsonIgnore]
-        public ICollection<MensagemEmocaoDTO>? MensagensEmocoes { get; set; }
+        public ICollection<MensagemResposta>? MensagensRespostas { get; set; }
     }
 }
