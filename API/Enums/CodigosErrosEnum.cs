@@ -54,6 +54,10 @@ namespace API.Enums
 
         // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 500 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         [Description("Processo abortado pois houve um erro interno")]
-        ErroInterno = 500
+        ErroInterno = 500,
+
+        // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 500 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        [Description("Processo abortado. Parece que a mensagem está vazia")]
+        MensagemVazia = 600
     }
 }

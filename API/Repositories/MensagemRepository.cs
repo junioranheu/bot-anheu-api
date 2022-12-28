@@ -1,9 +1,11 @@
 ﻿using API.Data;
 using API.DTOs;
+using API.Enums;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using static Biblioteca.Utils;
 
 namespace API.Repositories
 {
@@ -68,6 +70,12 @@ namespace API.Repositories
 
         public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
         {
+            if (String.IsNullOrEmpty(dto?.Texto))
+            {
+                RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
+                return erro;
+            }
+
             // #01 - Registrar mensagem;
             dto.Texto = dto?.Texto?.ToLowerInvariant() ?? "";
             Mensagem mensagem = _map.Map<Mensagem>(dto);
@@ -75,11 +83,26 @@ namespace API.Repositories
             await _context.SaveChangesAsync();
 
             // #02 - Analisar mensagem;
+            // #02.01 - Quebrar o texto e inserir em array;
+            string[]? palavras = dto?.Texto.Split(' ');
 
-            // #03 - Gerar resposta;
-            RespostaDTO resposta = new();
+            if (palavras?.Length > 0)
+            {
+                foreach (var item in palavras)
+                {
+                    var respostas = await _context.Respostas.
+                                    Where(r => r.Texto.Contains(item) && r.IsAtivo == true).AsNoTracking().ToListAsync();
 
-            return resposta;
+                }
+
+                // MensagemDTO dto = _map.Map<MensagemDTO>(byId);
+
+                // #03 - Gerar resposta;
+                RespostaDTO resposta = new();
+                return resposta;
+            }
+
+            return null;
         }
     }
 }
