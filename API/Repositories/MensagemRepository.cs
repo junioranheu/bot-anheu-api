@@ -119,13 +119,14 @@ namespace API.Repositories
 
         private async Task<RespostaDTO> GerarResposta(MensagemDTO dto)
         {
-            string[]? palavras = dto?.Texto.Split(' ');
+            string[]? palavras = dto?.Texto?.Split(' ');
             List<Resposta> listRespostas = new();
 
             foreach (string item in palavras)
             {
                 var respostas = await _context.Respostas.
-                                Where(r => r.Texto.Contains(RemoverAcentos(item)) && r.IsAtivo == true).AsNoTracking().ToListAsync();
+                                Where(r => r.Texto.Contains(RemoverAcentos(item)) && r.IsAtivo == true).
+                                AsNoTracking().ToListAsync();
 
                 listRespostas?.AddRange(respostas);
             }
