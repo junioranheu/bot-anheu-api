@@ -58,6 +58,9 @@ namespace API.Enums
 
         // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 500 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         [Description("Processo abortado. Parece que a mensagem está vazia")]
-        MensagemVazia = 600
+        MensagemVazia = 600,
+
+        [Description("Palavra desconhecida")]
+        PalavraDesconhecida = 601
     }
 }

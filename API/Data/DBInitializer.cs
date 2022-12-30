@@ -58,16 +58,16 @@ namespace API.Data
 
             if (!await context.Respostas.AnyAsync())
             {
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 1, Texto = "olá, tudo bem?", DataRegistro = dataAgora, IsAtivo = true });
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 2, Texto = "olá, tudo certo?", DataRegistro = dataAgora, IsAtivo = true });
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 3, Texto = "olá!", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 1, Texto = "ola, tudo bem?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 2, Texto = "ola, tudo certo?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 3, Texto = "ola!", DataRegistro = dataAgora, IsAtivo = true });
                 await context.Respostas.AddAsync(new Resposta() { RespostaId = 4, Texto = "oi, tudo de boa?", DataRegistro = dataAgora, IsAtivo = true });
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 5, Texto = "e aí!", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 5, Texto = "e ai!", DataRegistro = dataAgora, IsAtivo = true });
                 await context.Respostas.AddAsync(new Resposta() { RespostaId = 6, Texto = "tchau!", DataRegistro = dataAgora, IsAtivo = true });
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 7, Texto = "até mais", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 7, Texto = "ate mais", DataRegistro = dataAgora, IsAtivo = true });
                 await context.Respostas.AddAsync(new Resposta() { RespostaId = 8, Texto = "ah, que pena! tchau! :(", DataRegistro = dataAgora, IsAtivo = true });
                 await context.Respostas.AddAsync(new Resposta() { RespostaId = 9, Texto = "que foi?", DataRegistro = dataAgora, IsAtivo = true });
-                await context.Respostas.AddAsync(new Resposta() { RespostaId = 10, Texto = "aff o quê?", DataRegistro = dataAgora, IsAtivo = true });
+                await context.Respostas.AddAsync(new Resposta() { RespostaId = 10, Texto = "aff o que?", DataRegistro = dataAgora, IsAtivo = true });
             }
 
             if (!await context.RespostasEmocoes.AnyAsync())

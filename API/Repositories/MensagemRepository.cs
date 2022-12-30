@@ -70,9 +70,11 @@ namespace API.Repositories
 
         public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
         {
+            var rand = new Random();
+            RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
+
             if (String.IsNullOrEmpty(dto?.Texto))
             {
-                RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
                 return erro;
             }
 
@@ -88,21 +90,37 @@ namespace API.Repositories
 
             if (palavras?.Length > 0)
             {
+                List<Resposta> listRespostas = new();
+
                 foreach (var item in palavras)
                 {
                     var respostas = await _context.Respostas.
-                                    Where(r => r.Texto.Contains(item) && r.IsAtivo == true).AsNoTracking().ToListAsync();
+                                    Where(r => r.Texto.Contains(RemoverAcentos(item)) && r.IsAtivo == true).AsNoTracking().ToListAsync();
 
+                    listRespostas?.AddRange(respostas);
                 }
 
-                // MensagemDTO dto = _map.Map<MensagemDTO>(byId);
+                if (listRespostas.Count == 0)
+                {
+                    List<string> listaNaoSei = new()
+                    {
+                        "Eu não sei como responder essa frase ainda!",
+                        "Eu não aprendi a como responder essa frase ainda!",
+                        "Não entendi!",
+                        "Não aprendi isso ainda!"
+                    };
 
-                // #03 - Gerar resposta;
-                RespostaDTO resposta = new();
-                return resposta;
+                    RespostaDTO erro2 = new() { Texto = listaNaoSei.ElementAt(rand.Next(listaNaoSei.Count)), Erro = true, CodigoErro = (int)CodigosErrosEnum.PalavraDesconhecida, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.PalavraDesconhecida) };
+                    return erro2;
+                }
+
+                var respostaAleatoria = listRespostas.ElementAt(rand.Next(listRespostas.Count));
+                RespostaDTO resultadoDTO = _map.Map<RespostaDTO>(respostaAleatoria);
+
+                return resultadoDTO;
             }
 
-            return null;
+            return erro;
         }
     }
 }
