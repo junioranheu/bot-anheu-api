@@ -70,7 +70,6 @@ namespace API.Repositories
 
         public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
         {
-            var rand = new Random();
             RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
 
             if (String.IsNullOrEmpty(dto?.Texto))
@@ -78,31 +77,34 @@ namespace API.Repositories
                 return erro;
             }
 
-            // #01 - Registrar mensagem;
-            dto.Texto = dto?.Texto?.ToLowerInvariant() ?? "";
-            Mensagem mensagem = _map.Map<Mensagem>(dto);
-            await _context.AddAsync(mensagem);
-            await _context.SaveChangesAsync();
+            await SalvarMensagem(dto);
+            RespostaDTO resposta = await GerarResposta(dto);
 
-            // #02 - Analisar mensagem;
-            // #02.01 - Quebrar o texto e inserir em array;
-            string[]? palavras = dto?.Texto.Split(' ');
+            return resposta;
+        }
 
-            if (palavras?.Length > 0)
+        private async Task<bool> SalvarMensagem(MensagemDTO dto)
+        {
+            try
             {
-                List<Resposta> listRespostas = new();
+                dto.Texto = dto?.Texto?.ToLowerInvariant() ?? "";
+                Mensagem mensagem = _map.Map<Mensagem>(dto);
+                await _context.AddAsync(mensagem);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
 
-                foreach (var item in palavras)
-                {
-                    var respostas = await _context.Respostas.
-                                    Where(r => r.Texto.Contains(RemoverAcentos(item)) && r.IsAtivo == true).AsNoTracking().ToListAsync();
+            return true;
+        }
 
-                    listRespostas?.AddRange(respostas);
-                }
+        private static RespostaDTO GerarMensagemErroBotNaoSabe()
+        {
+            var rand = new Random();
 
-                if (listRespostas.Count == 0)
-                {
-                    List<string> listaNaoSei = new()
+            List<string> listaNaoSei = new()
                     {
                         "Eu não sei como responder essa frase ainda!",
                         "Eu não aprendi a como responder essa frase ainda!",
@@ -110,17 +112,39 @@ namespace API.Repositories
                         "Não aprendi isso ainda!"
                     };
 
-                    RespostaDTO erro2 = new() { Texto = listaNaoSei.ElementAt(rand.Next(listaNaoSei.Count)), Erro = true, CodigoErro = (int)CodigosErrosEnum.PalavraDesconhecida, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.PalavraDesconhecida) };
-                    return erro2;
-                }
-
-                var respostaAleatoria = listRespostas.ElementAt(rand.Next(listRespostas.Count));
-                RespostaDTO resultadoDTO = _map.Map<RespostaDTO>(respostaAleatoria);
-
-                return resultadoDTO;
-            }
+            RespostaDTO erro = new() { Texto = listaNaoSei.ElementAt(rand.Next(listaNaoSei.Count)), Erro = true, CodigoErro = (int)CodigosErrosEnum.PalavraDesconhecida, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.PalavraDesconhecida) };
 
             return erro;
+        }
+
+        private async Task<RespostaDTO> GerarResposta(MensagemDTO dto)
+        {
+            string[]? palavras = dto?.Texto.Split(' ');
+            List<Resposta> listRespostas = new();
+
+            foreach (string item in palavras)
+            {
+                var respostas = await _context.Respostas.
+                                Where(r => r.Texto.Contains(RemoverAcentos(item)) && r.IsAtivo == true).AsNoTracking().ToListAsync();
+
+                listRespostas?.AddRange(respostas);
+            }
+
+            if (listRespostas.Count == 0)
+            {
+                return GerarMensagemErroBotNaoSabe();
+            }
+
+            return RandomizarArray(listRespostas);
+        }
+
+        private RespostaDTO RandomizarArray(List<Resposta> listRespostas)
+        {
+            var rand = new Random();
+            var respostaAleatoria = listRespostas.ElementAt(rand.Next(listRespostas.Count));
+            RespostaDTO resultadoDTO = _map.Map<RespostaDTO>(respostaAleatoria);
+
+            return resultadoDTO;
         }
     }
 }
