@@ -69,11 +69,10 @@ namespace API.Repositories
         }
 
         public async Task<RespostaDTO>? EnviarMensagem(MensagemDTO dto)
-        {
-            RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
-
+        {        
             if (String.IsNullOrEmpty(dto?.Texto))
             {
+                RespostaDTO erro = new() { Erro = true, CodigoErro = (int)CodigosErrosEnum.MensagemVazia, MensagemErro = GetDescricaoEnum(CodigosErrosEnum.MensagemVazia) };
                 return erro;
             }
 
